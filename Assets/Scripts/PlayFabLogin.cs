@@ -43,7 +43,7 @@ public class PlayFabLogin : MonoBehaviour
     {
        var errorMessage = error.GenerateErrorReport();   
         Debug.Log(errorMessage);
-        _connectInfoText.text = errorMessage;
+        _connectInfoText.text = "Conection error";
         _connectInfoText.color = Color.red;
     }
 }
