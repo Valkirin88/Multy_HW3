@@ -12,6 +12,10 @@ public class PlayFabLogin : MonoBehaviour
     private TextMeshProUGUI _connectInfoText;
     [SerializeField]
     private GameObject _loadSign;
+    [SerializeField]
+    private GameObject _loginCanvas;
+    [SerializeField]
+    private GameObject _playerInfo;
 
     private float _offset = 0.3f;
 
@@ -36,6 +40,7 @@ public class PlayFabLogin : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginError);
 
         ShowWaitConnect(true);
+        
     }
 
      private void OnLoginSuccess(LoginResult result)
@@ -44,6 +49,8 @@ public class PlayFabLogin : MonoBehaviour
         _connectInfoText.text = "Complete Login";
         _connectInfoText.color = Color.green;
         ShowWaitConnect(false);
+        _playerInfo.SetActive(true);
+        _loginCanvas.SetActive(false);
     }
 
     private void OnLoginError(PlayFabError error)
