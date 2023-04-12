@@ -6,11 +6,15 @@ using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
 {
-
     [SerializeField]
     private Button _loginButton;
     [SerializeField]
     private TextMeshProUGUI _connectInfoText;
+    [SerializeField]
+    private GameObject _loadSign;
+
+    private float _offset = 0.3f;
+
 
     private void Start()
     {
@@ -30,13 +34,16 @@ public class PlayFabLogin : MonoBehaviour
         };
 
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginError);
+
+        ShowWaitConnect(true);
     }
 
-    private void OnLoginSuccess(LoginResult result)
+     private void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Complete Login");
         _connectInfoText.text = "Complete Login";
         _connectInfoText.color = Color.green;
+        ShowWaitConnect(false);
     }
 
     private void OnLoginError(PlayFabError error)
@@ -46,4 +53,17 @@ public class PlayFabLogin : MonoBehaviour
         _connectInfoText.text = "Conection error";
         _connectInfoText.color = Color.red;
     }
+
+    private void ShowWaitConnect(bool isWait)
+    {
+        _loadSign.SetActive(isWait);
+
+    }
+
+    private void Update()
+    {
+        _loadSign.transform.Rotate(new Vector3(0, 0, -10 * Time.deltaTime));
+    }
+
+
 }
